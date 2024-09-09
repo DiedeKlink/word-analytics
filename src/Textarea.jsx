@@ -17,6 +17,8 @@ export default function Textarea() {
       setWarningText("No @ symbol allowed!");
 
       newText = newText.replace("@", "");
+    } else {
+      setWarningText("");
     }
 
     setText(newText);
