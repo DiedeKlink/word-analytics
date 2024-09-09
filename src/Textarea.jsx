@@ -4,13 +4,19 @@ import Warning from "./Warning";
 export default function Textarea() {
   const [text, setText] = useState("");
   const [warning, setWarning] = useState(false);
+  const [warningText, setWarningText] = useState("");
 
   const handleChange = (e) => {
     let newText = e.target.value;
 
     if (newText.includes("<script>")) {
+      setWarningText("No script tag allowed!");
       setWarning(true);
       newText = newText.replace("<script>", "");
+    } else if (newText.includes("@")) {
+      setWarningText("No @ symbol allowed!");
+      setWarning(true);
+      newText = newText.replace("@", "");
     }
 
     setText(newText);
@@ -23,7 +29,7 @@ export default function Textarea() {
         placeholder="Enter your text"
         spellCheck="false"
       />
-      {warning && <Warning />}
+      {warning && <Warning warningText={warningText} />}
     </div>
   );
 }
